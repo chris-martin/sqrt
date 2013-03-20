@@ -1,8 +1,6 @@
 package bad
 
-import java.security.Provider.Service
-import java.security.{Provider, Security}
-import java.security.SecureRandomSpi
+import java.security._
 import square.SquareRoot
 
 object Main {
@@ -19,7 +17,7 @@ class BadProvider extends Provider("bad-provider", 1, "evil shenanigans") {
   putService(new BadService(this))
 }
 
-class BadService(p: Provider) extends Service(
+class BadService(p: Provider) extends Provider.Service(
   p, "SecureRandom", "bad-algorithm", "bad.BadSecureRandom", null, null)
 
 class BadSecureRandom extends SecureRandomSpi {
